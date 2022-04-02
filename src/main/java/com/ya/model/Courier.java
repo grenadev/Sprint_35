@@ -1,5 +1,4 @@
-package com.ya;
-
+package com.ya.model;
 
 public class Courier {
     private String login;
@@ -35,10 +34,4 @@ public class Courier {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-
-
-
-
-
 }

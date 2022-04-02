@@ -1,8 +1,8 @@
 package com.ya.tests;
 
-import com.ya.Courier;
-import com.ya.CourierClient;
-import com.ya.generator.CourierGenerator;
+import com.ya.model.Courier;
+import com.ya.client.CourierClient;
+import com.ya.utils.CourierGenerator;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -22,7 +22,7 @@ public class CourierLoginTest {
     public void setUp() {
         courierClient = new CourierClient();
         courier = generator.generateCourierData();
-        courierClient.CreateWithCredits(courier);
+        courierClient.createWithCredits(courier);
     }
 
     @After
@@ -39,7 +39,7 @@ public class CourierLoginTest {
         String errorMessage = loginResponse.extract().body().path("message");
 
         assertThat("Courier cannot login", statusCode, equalTo(404));
-        assertThat("Unknown error message ", errorMessage , equalTo("Учетная запись не найдена"));
+        assertThat("Unknown error message ", errorMessage, equalTo("Учетная запись не найдена"));
     }
 
     @Test
@@ -53,8 +53,6 @@ public class CourierLoginTest {
         assertThat("Courier ID is incorrect", courierId, is(not(0)));
     }
 
-
-
     @Test
     @DisplayName("Courier cant login without login")
     public void courierCantLoginWithOutLogin() {
@@ -64,9 +62,10 @@ public class CourierLoginTest {
         String errorMessage = loginResponse.extract().body().path("message");
 
         assertThat("Courier success login without login", statusCode, equalTo(400));
-        assertThat("Unknown error message ", errorMessage , equalTo("Недостаточно данных для входа"));
+        assertThat("Unknown error message ", errorMessage, equalTo("Недостаточно данных для входа"));
 
     }
+
     @Test
     @DisplayName("Courier cant login without password")
     public void courierCantLoginWithOutPassword() {
@@ -76,8 +75,6 @@ public class CourierLoginTest {
         String errorMessage = loginResponse.extract().body().path("message");
 
         assertThat("Courier success login without login", statusCode, equalTo(400));
-        assertThat("Unknown error message ", errorMessage , equalTo("Недостаточно данных для входа"));
-
+        assertThat("Unknown error message ", errorMessage, equalTo("Недостаточно данных для входа"));
     }
-
 }

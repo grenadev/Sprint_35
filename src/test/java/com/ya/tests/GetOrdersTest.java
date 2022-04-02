@@ -1,6 +1,6 @@
 package com.ya.tests;
 
-import com.ya.CourierClient;
+import com.ya.client.CourierClient;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Before;
@@ -16,7 +16,6 @@ public class GetOrdersTest {
 
     CourierClient courierClient;
 
-
     @Before
     public void setUp() {
         courierClient = new CourierClient();
@@ -26,10 +25,8 @@ public class GetOrdersTest {
     @DisplayName("Get orders list")
     public void getOrderTest() {
         ValidatableResponse loginResponse = courierClient.getOrders();
-        List<ArrayList> idList =  loginResponse.extract().body().path("orders.id");
+        List<ArrayList> idList = loginResponse.extract().body().path("orders.id");
 
-        assertThat("No order in list", idList.isEmpty() , equalTo(false));
-
+        assertThat("No order in list", idList.isEmpty(), equalTo(false));
     }
-
 }
